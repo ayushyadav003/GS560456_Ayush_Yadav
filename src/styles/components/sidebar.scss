@@ -1,0 +1,25 @@
+.sidebar {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 180px;
+  height: 100%;
+  padding: 10px;
+  background: radial-gradient(circle, #041c2f, #0a2f50);
+  border-radius: 16px;
+  div {
+    display: flex;
+    color: #fff;
+    padding: 0 15px;
+    gap: 1rem;
+    align-items: center;
+    border-radius: 8px;
+  }
+  div:hover {
+    background-color: #ffffff80;
+  }
+  .selected {
+    background: #ffffffea;
+    color: #041c2f;
+  }
+}
