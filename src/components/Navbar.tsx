@@ -59,7 +59,7 @@ export default function TopHeader() {
             </div>
           </div>
           <div className="inner2">
-            <p onClick={() => navigate('/profile')}>My Profile</p>
+            <p>My Profile</p>
             <p style={{ color: '#f89fa4' }} onClick={() => handleLogout()}>
               <Logout /> Log out
             </p>
