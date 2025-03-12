@@ -1,0 +1,35 @@
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+  .recharts-wrapper {
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .recharts-cartesian-grid line {
+    stroke: rgba(255, 255, 255, 0.2);
+  }
+
+  .recharts-tooltip-wrapper {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .recharts-legend-item-text {
+    color: white !important;
+  }
+
+  .recharts-x-axis text,
+  .recharts-y-axis text {
+    fill: white;
+  }
+}

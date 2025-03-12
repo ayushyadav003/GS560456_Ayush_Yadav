@@ -1,41 +1,61 @@
-import { useSelector } from 'react-redux'
-import { RootState } from '../store/store'
+import { useState, useEffect } from 'react'
 import {
-  BarChart,
   Bar,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  CartesianGrid,
+  ComposedChart,
 } from 'recharts'
-import '../styles/global.scss'
+import { chart } from '../utils/appUtils'
+import '../styles/pages/chart.scss'
 
-const Chart = () => {
-  const stores = useSelector((state: RootState) => state.stores.stores)
-  const skus = useSelector((state: RootState) => state.skus.skus)
+const ChartPage = () => {
+  const [chartData, setChartData] = useState([])
 
-  const chartData = stores.map((store) => ({
-    store: store.name,
-    gmDollars: skus.reduce((acc, sku) => acc + sku.price * 100, 0),
-    gmPercent: skus.length ? Math.random() * 100 : 0,
-  }))
+  useEffect(() => {
+    const processedData = chart.map((item) => ({
+      week: item.Week,
+      'GM Dollars': item.GM_Dollars,
+      'GM %': ((item.GM_Dollars / item.Sales_Dollars) * 100).toFixed(2),
+    }))
+    setChartData(processedData)
+  }, [])
 
   return (
-    <div className="main-content">
-      <h2>GM Performance Chart</h2>
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={chartData}>
-          <XAxis dataKey="store" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="gmDollars" fill="#1976d2" />
-          <Bar dataKey="gmPercent" fill="#ff9800" />
-        </BarChart>
-      </ResponsiveContainer>
+    <div className="chart-container">
+      <div className="recharts-wrapper">
+        <ResponsiveContainer width="100%" height={350}>
+          <ComposedChart data={chartData}>
+            <XAxis dataKey="week" />
+            <YAxis
+              yAxisId="left"
+              orientation="left"
+              tickFormatter={(value) => `$${value.toLocaleString()}`}
+            />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              tickFormatter={(value) => `${value}%`}
+            />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Bar yAxisId="left" dataKey="GM Dollars" fill="#8884d8" />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="GM %"
+              stroke="#ff7300"
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   )
 }
 
-export default Chart
+export default ChartPage
