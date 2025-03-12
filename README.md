@@ -1,54 +1,122 @@
-# React + TypeScript + Vite
+# GS560456 - Data Viewer App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is a **React-based Data Viewer Application** built using **TypeScript** and **AG-Grid**, featuring data visualization and management capabilities. It includes pages for **Store, SKU, Planning, and Charts**, enabling users to interact with structured data efficiently. 
 
-Currently, two official plugins are available:
+## Technologies Used
+- **React.js (with TypeScript)** - For building UI components
+- **AG-Grid** - For advanced data table functionalities
+- **Redux (optional)** - For state management
+- **Recharts** - For chart visualization
+- **SCSS** - For styling and maintainability
+- **Formik & Yup** - For form validation (if applicable)
+- **Vite** - As a fast build tool
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Getting Started
+### Prerequisites
+Ensure you have the following installed:
+- **Node.js** (>= 16.0.0)
+- **npm** or **yarn**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation Steps
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/ayushyadav003/GS560456_Ayush_Yadav.git
+   cd GS560456_Ayush_Yadav
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+   or
+   ```sh
+   yarn install
+   ```
+3. **Run the application:**
+   ```sh
+   npm run dev
+   ```
+   This will start the development server. The app will be accessible at `http://localhost:5173/` (default Vite port).
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## Application Structure
+```
+GS560456_Ayush_Yadav/
+│-- src/
+│   ├── components/    # Reusable components
+│   ├── pages/         # Main pages (Store, SKU, Planning, Chart)
+│   ├── store/         # Redux store (if applicable)
+│   ├── utils/         # Helper functions
+│   ├── styles/        # Global SCSS styles
+│   ├── App.tsx        # Main App component
+│   ├── main.tsx       # Entry point
+│-- public/            # Static assets
+│-- package.json       # Dependencies & scripts
+│-- vite.config.ts     # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Pages & Functionalities
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 1. **Store Page** (`/store`)
+- Displays a table with store data.
+- Uses **AG-Grid** for sorting, filtering, and pagination.
+- Supports row selection and bulk actions.
+
+### 2. **SKU Page** (`/sku`)
+- Manages SKU-related data.
+- Allows dynamic filtering and data manipulation.
+- Uses **Redux** for state management (if implemented).
+
+### 3. **Planning Page** (`/planning`)
+- Handles sales and inventory planning.
+- Includes form validation using **Formik & Yup**.
+- Implements dynamic data processing.
+
+### 4. **Chart Page** (`/chart`)
+- Visualizes **GM Dollars** and **GM %** with a **Composed Chart**.
+- Uses **Recharts** for Bar and Line chart combination.
+- Displays **Tooltip, Legends, X/Y Axes formatting**.
+
+---
+
+## Key Approaches
+
+### 🔹 **State Management**
+- Uses **React State** for local UI states.
+- Optionally integrates **Redux** for global state.
+
+### 🔹 **Performance Optimization**
+- Implements **lazy loading** for better performance.
+- Uses **memoization** (React.memo, useMemo, useCallback).
+- Optimized API calls using **debouncing & throttling**.
+
+### 🔹 **Responsive UI & Styling**
+- Styled using **SCSS** with modular approach.
+- Implemented **mobile-friendly grid layouts**.
+
+### 🔹 **Error Handling & Validations**
+- **Formik & Yup** for form validation.
+- Graceful error handling with **try/catch & toast notifications**.
+
+---
+
+## Deployment
+To build and deploy:
+```sh
+npm run build
 ```
+This generates optimized static files inside the `dist/` folder.
+
+For deployment on **Vercel**, run:
+```sh
+vercel --prod
+```
+
+**Ayush Yadav**  
+[GitHub](https://github.com/ayushyadav003)  
+[LinkedIn](https://www.linkedin.com/in/ayushyadav003/)  
