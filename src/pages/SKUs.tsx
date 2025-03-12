@@ -10,32 +10,32 @@ const SKUs: React.FC = () => {
 
   // Columns
   const columnDefs: ColDef[] = [
-    { headerName: 'SKU ID', field: 'id', width: 120, editable: true },
-    { headerName: 'Name', field: 'label', flex: 1, editable: true },
-    { headerName: 'Class', field: 'class', width: 150, editable: true },
+    { headerName: 'SKU ID', field: 'ID', width: 120, editable: true },
+    { headerName: 'Name', field: 'Label', flex: 1, editable: true },
+    { headerName: 'Class', field: 'Class', width: 150, editable: true },
     {
       headerName: 'Department',
-      field: 'department',
+      field: 'Department',
       width: 180,
       editable: true,
     },
     {
       headerName: 'Price',
-      field: 'price',
+      field: 'Price',
       width: 120,
       editable: true,
       cellEditor: 'agTextCellEditor',
     },
     {
       headerName: 'Cost',
-      field: 'cost',
+      field: 'Cost',
       width: 120,
       editable: true,
       cellEditor: 'agTextCellEditor',
     },
     {
       headerName: 'Actions',
-      field: 'actions',
+      field: 'Actions',
       width: 120,
       cellRenderer: (params: any) => (
         <button
@@ -63,7 +63,7 @@ const SKUs: React.FC = () => {
     }
 
     const updatedSKUs = skus.map((sku) =>
-      sku.id === data.id ? { ...sku, [colDef.field]: newValue } : sku,
+      sku.ID === data.ID ? { ...sku, [colDef.field]: newValue } : sku,
     )
     setSKUs(updatedSKUs)
   }
@@ -71,12 +71,12 @@ const SKUs: React.FC = () => {
   // Add a new SKU
   const handleAdd = () => {
     const newSKU: SKU = {
-      id: `SK00${skus.length + 159}`,
-      label: 'New SKU',
-      class: 'Unknown',
-      department: 'Unassigned',
-      price: '0.00',
-      cost: '0.00',
+      ID: `SK00${skus.length + 159}`,
+      Label: 'New SKU',
+      Class: 'Unknown',
+      Department: 'Unassigned',
+      Price: 0.0,
+      Cost: 0.0,
     }
     setSKUs([...skus, newSKU])
   }
