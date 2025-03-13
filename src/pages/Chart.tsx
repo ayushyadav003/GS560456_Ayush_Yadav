@@ -13,15 +13,31 @@ import {
 import { chart } from '../utils/appUtils'
 import '../styles/pages/chart.scss'
 
+interface ChartItem {
+  Week: string
+  GM_Dollars: number
+  Sales_Dollars: number
+}
+
+interface ProcessedChartItem {
+  week: string
+  'GM Dollars': number
+  'GM %': number
+}
+
 const ChartPage = () => {
-  const [chartData, setChartData] = useState([])
+  const [chartData, setChartData] = useState<ProcessedChartItem[]>([])
 
   useEffect(() => {
-    const processedData = chart.map((item) => ({
-      week: item.Week,
-      'GM Dollars': item.GM_Dollars,
-      'GM %': ((item.GM_Dollars / item.Sales_Dollars) * 100).toFixed(2),
-    }))
+    const processedData: ProcessedChartItem[] = chart.map(
+      (item: ChartItem) => ({
+        week: item.Week,
+        'GM Dollars': item.GM_Dollars,
+        'GM %': Number(
+          ((item.GM_Dollars / item.Sales_Dollars) * 100).toFixed(2),
+        ),
+      }),
+    )
     setChartData(processedData)
   }, [])
 
@@ -34,12 +50,12 @@ const ChartPage = () => {
             <YAxis
               yAxisId="left"
               orientation="left"
-              tickFormatter={(value) => `$${value.toLocaleString()}`}
+              tickFormatter={(value: number) => `$${value.toLocaleString()}`}
             />
             <YAxis
               yAxisId="right"
               orientation="right"
-              tickFormatter={(value) => `${value}%`}
+              tickFormatter={(value: number) => `${value}%`}
             />
             <Tooltip />
             <Legend />
