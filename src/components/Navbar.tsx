@@ -10,7 +10,7 @@ export default function TopHeader() {
   const open = Boolean(anchorEl)
   const popoverId = open ? 'simple-popover' : undefined
 
-  const handleOpen = (event) => {
+  const handleOpen = (event:any) => {
     setAnchorEl(event.currentTarget)
   }
 

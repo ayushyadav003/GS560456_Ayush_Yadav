@@ -4,8 +4,13 @@ import * as Yup from 'yup'
 import '../styles/pages/login.scss'
 import { useNavigate } from 'react-router-dom'
 
-const LoginPopup = () => {
-  const [loading, setLoading] = useState(false)
+interface LoginFormValues {
+  email: string
+  password: string
+}
+
+const LoginPopup: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
 
   const validationSchema = Yup.object({
@@ -15,12 +20,12 @@ const LoginPopup = () => {
       .required('Password is required'),
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = (values: LoginFormValues) => {
     setLoading(true)
-    setTimeout(()=>{
+    setTimeout(() => {
       setLoading(false)
       navigate('/store')
-    },1000)
+    }, 1000)
   }
 
   return (
@@ -42,11 +47,7 @@ const LoginPopup = () => {
               <div className="form-group">
                 <label>Password</label>
                 <Field type="password" name="password" />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="error"
-                />
+                <ErrorMessage name="password" component="div" className="error" />
               </div>
               <button type="submit" disabled={isSubmitting || loading}>
                 {loading ? 'Logging in...' : 'Login'}

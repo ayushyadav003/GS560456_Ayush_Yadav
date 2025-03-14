@@ -83,7 +83,7 @@ const SKUs: React.FC = () => {
 
   // Delete a SKU
   const handleDelete = (id: string) => {
-    setSKUs(skus.filter((sku) => sku.id !== id))
+    setSKUs(skus.filter((sku) => sku.ID !== id))
   }
 
   return (
