@@ -21,6 +21,7 @@ const LoginPopup: React.FC = () => {
   })
 
   const handleSubmit = (values: LoginFormValues) => {
+    console.log(values)
     setLoading(true)
     setTimeout(() => {
       setLoading(false)

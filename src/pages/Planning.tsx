@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo, useState } from 'react'
 import { AgGridReact } from 'ag-grid-react'
-import { ColDef, ValueGetterParams, ValueFormatterParams, CellClassParams, ValueParserParams } from 'ag-grid-community'
+import {
+  ColDef,
+  ValueGetterParams,
+  ValueFormatterParams,
+  CellClassParams,
+  ValueParserParams,
+} from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 import {
@@ -42,7 +48,7 @@ interface PlanningRowData {
 }
 
 const PlanningScreen: React.FC = () => {
-  const [rowData, setRowData] = useState<PlanningRowData[]>(() => {
+  const [rowData] = useState<PlanningRowData[]>(() => {
     return initialStores.flatMap((store: Store) =>
       initialSKUs.map((sku: SKU) => ({
         store: store.label,
@@ -71,50 +77,70 @@ const PlanningScreen: React.FC = () => {
             headerName: 'Sales Units',
             field: `${week.week}_SalesUnits`,
             editable: true,
-            valueParser: (params: ValueParserParams) => parseInt(params.newValue, 10) || 0,
+            valueParser: (params: ValueParserParams) =>
+              parseInt(params.newValue, 10) || 0,
           },
           {
             headerName: 'Sales Dollars',
             valueGetter: (params: ValueGetterParams<PlanningRowData>) => {
-              const sku = initialSKUs.find((s: SKU) => s.Label === params.data?.sku)
+              const sku = initialSKUs.find(
+                (s: SKU) => s.Label === params.data?.sku,
+              )
               return sku
-                ? Number((params.data?.[`${week.week}_SalesUnits`] as number) * sku.Price).toFixed(2)
+                ? Number(
+                    (params.data?.[`${week.week}_SalesUnits`] as number) *
+                      sku.Price,
+                  ).toFixed(2)
                 : '0.00'
             },
-            valueFormatter: (params: ValueFormatterParams) => `$ ${params.value}`,
+            valueFormatter: (params: ValueFormatterParams) =>
+              `$ ${params.value}`,
           },
           {
             headerName: 'GM Dollars',
             valueGetter: (params: ValueGetterParams<PlanningRowData>) => {
-              const sku = initialSKUs.find((s: SKU) => s.Label === params.data?.sku)
+              const sku = initialSKUs.find(
+                (s: SKU) => s.Label === params.data?.sku,
+              )
               return sku
                 ? Number(
-                    (params.data?.[`${week.week}_SalesUnits`] as number) * (sku.Price - sku.Cost),
+                    (params.data?.[`${week.week}_SalesUnits`] as number) *
+                      (sku.Price - sku.Cost),
                   ).toFixed(2)
                 : '0.00'
             },
-            valueFormatter: (params: ValueFormatterParams) => `$ ${params.value}`,
+            valueFormatter: (params: ValueFormatterParams) =>
+              `$ ${params.value}`,
           },
           {
             headerName: 'GM %',
             valueGetter: (params: ValueGetterParams<PlanningRowData>) => {
               const salesDollars =
                 (params.data?.[`${week.week}_SalesUnits`] as number) *
-                (initialSKUs.find((s: SKU) => s.Label === params.data?.sku)?.Price || 0)
+                (initialSKUs.find((s: SKU) => s.Label === params.data?.sku)
+                  ?.Price || 0)
 
               const gmDollars =
                 (params.data?.[`${week.week}_SalesUnits`] as number) *
-                ((initialSKUs.find((s: SKU) => s.Label === params.data?.sku)?.Price || 0) -
-                  (initialSKUs.find((s: SKU) => s.Label === params.data?.sku)?.Cost || 0))
+                ((initialSKUs.find((s: SKU) => s.Label === params.data?.sku)
+                  ?.Price || 0) -
+                  (initialSKUs.find((s: SKU) => s.Label === params.data?.sku)
+                    ?.Cost || 0))
 
-              return salesDollars ? ((gmDollars / salesDollars) * 100).toFixed(2) : '0.00'
+              return salesDollars
+                ? ((gmDollars / salesDollars) * 100).toFixed(2)
+                : '0.00'
             },
-            valueFormatter: (params: ValueFormatterParams) => `${params.value} %`,
+            valueFormatter: (params: ValueFormatterParams) =>
+              `${params.value} %`,
             cellStyle: (params: CellClassParams) => {
               const value = parseFloat(params.value as string)
-              if (value >= 40) return { backgroundColor: 'green', color: 'white' }
-              if (value >= 10) return { backgroundColor: 'yellow', color: 'black' }
-              if (value > 5) return { backgroundColor: 'orange', color: 'black' }
+              if (value >= 40)
+                return { backgroundColor: 'green', color: 'white' }
+              if (value >= 10)
+                return { backgroundColor: 'yellow', color: 'black' }
+              if (value > 5)
+                return { backgroundColor: 'orange', color: 'black' }
               return { backgroundColor: 'red', color: 'white' }
             },
           },
